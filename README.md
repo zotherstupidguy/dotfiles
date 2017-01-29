@@ -1,0 +1,1 @@
+emacs goes into ~/.emacs
