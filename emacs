@@ -1,3 +1,5 @@
+;;ref: http://worace.works/2016/06/07/getting-started-with-emacs-for-ruby/
+
 ; list the repositories containing them
 (setq package-archives '(("elpa" . "http://tromey.com/elpa/")
 			 ("gnu" . "http://elpa.gnu.org/packages/")
