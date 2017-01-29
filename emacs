@@ -40,6 +40,12 @@
 ;;(load-theme 'solarized-dark t)
 (load-theme 'kooten t)
 
+;; org-mode configs
+(require 'org)
+(define-key global-map "\C-cl" 'org-store-link)
+(define-key global-map "\C-ca" 'org-agenda)
+(setq org-log-done t)
+
 ;; Show line numbers
 (global-linum-mode)
 (setq linum-format "%d ")
@@ -121,3 +127,10 @@
 
 ;; saves the minibuffer history
 (savehist-mode 1)
+
+;; shift + enter to add a newline under
+(defun end-of-line-and-indented-new-line ()
+  (interactive)
+  (end-of-line)
+  (newline-and-indent))
+(global-set-key (kbd "<S-return>") 'end-of-line-and-indented-new-line)
