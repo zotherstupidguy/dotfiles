@@ -42,6 +42,11 @@
 
 ;; Show line numbers
 (global-linum-mode)
+(setq linum-format "%d ")
+(setq-default left-fringe-width  10)
+;;(setq-default right-fringe-width  0)
+;;(set-face-attribute 'fringe nil :background "yellow")
+
 
 ;; activate evil mode
 (require 'evil)
