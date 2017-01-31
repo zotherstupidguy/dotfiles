@@ -1,4 +1,10 @@
-;;ref: http://worace.works/2016/06/07/getting-started-with-emacs-for-ruby/
+;; Mohamed Fouad
+;; zotherstupidguy@gmail.com
+;; hackspree.com
+
+;; ref: http://howardism.org/Technical/Emacs/literate-programming-tutorial.html 
+;; ref: https://ayueer.wordpress.com/2006/07/01/some-emacs-tricks-on-ruby/ 
+;; ref: http://worace.works/2016/06/07/getting-started-with-emacs-for-ruby/
 
 ; list the repositories containing them
 (setq package-archives '(("elpa" . "http://tromey.com/elpa/")
@@ -24,8 +30,10 @@
 		      restart-emacs ;; M-x restart-emacs
 		      ruby-electric
 		      seeing-is-believing
-		      ;;chruby ;;rbenv
-		      inf-ruby
+                      ;;chruby ;;rbenv
+                      yasnippet           
+                      inf-ruby
+                      ess
 		      ruby-test-mode))
 
 ; install the missing packages
@@ -42,11 +50,34 @@
 ;;(load-theme 'solarized-dark t)
 (load-theme 'kooten t)
 
+;; yasnippet, docs: http://joaotavora.github.io/yasnippet/
+;;TODO create some custom org-snippet for note-taking
+(require 'yasnippet)
+(yas-global-mode 1)
+
 ;; org-mode configs
+;; <s + tab to add codeblocks in org-mode
+;; C-c' to edit codeblocks in their respective modes (C-c' to exit and go back to org-mode)
 (require 'org)
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
 (setq org-log-done t)
+(setq org-confirm-babel-evaluate nil
+      org-src-fontify-natively t
+      org-src-tab-acts-natively t)
+;; enables org-babel for the mentioned languages; 
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '( (perl . t)         
+    (C . t)
+    (ruby . t)
+    (sh . t)
+    (python . t)
+    (emacs-lisp . t)   
+    ))
+
+;; emacs-speaks-statistics
+(require 'ess)
 
 ;; Show line numbers
 (global-linum-mode)
@@ -136,3 +167,33 @@
   (end-of-line)
   (newline-and-indent))
 (global-set-key (kbd "<S-return>") 'end-of-line-and-indented-new-line)
+
+;; automagically does a "chmod u+x" when you save a script file (starting with "#!").
+;; Works with every kind of script, not only ruby ones. Just add that into .emacs
+(add-hook 'after-save-hook
+          '(lambda ()
+             (progn
+               (and (save-excursion
+                      (save-restriction
+                        (widen)
+                        (goto-char (point-min))
+                        (save-match-data
+                          (looking-at "^#!"))))
+                    (shell-command (concat "chmod u+x " 
+                                           buffer-file-name))
+                    (message (concat "Saved as script: 
+   " buffer-file-name))))))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (yasnippet solarized-theme simpleclip seeing-is-believing ruby-test-mode ruby-electric restart-emacs quickrun kooten-theme key-chord inf-ruby evil-org color-theme chruby better-defaults avk-emacs-themes async))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
