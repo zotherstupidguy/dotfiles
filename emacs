@@ -2,6 +2,7 @@
 ;; zotherstupidguy@gmail.com
 ;; hackspree.com
 
+;; ref: https://mixandgo.com/blog/how-ive-convinced-emacs-to-dance-with-ruby ( A lot need to be taken from this Tut, very gooooooooooood)
 ;; ref: https://martinralbrecht.wordpress.com/2014/11/03/c-development-with-emacs/
 ;; ref: https://martinralbrecht.wordpress.com/2015/02/12/sage-development-with-emacs/ 
 ;; ref: http://howardism.org/Technical/Emacs/literate-programming-tutorial.html 
@@ -44,6 +45,9 @@
                       git-timemachine ;; step forward and backward through the history of a file
                       highlight-indentation  ;;TODO require it and use it for python projects
                       openwith ;; open links for files and webpages into external programs 
+                      robe ;; required for robe-mode-hook https://github.com/dgutov/robe
+                      org-pomodoro ;; https://github.com/lolownia/org-pomodoro
+                      pos-tip  ;; https://www.topbug.net/blog/2016/11/03/emacs-display-function-or-variable-information-near-point-cursor/
                       ruby-test-mode))
 
 ; install the missing packages
@@ -269,4 +273,35 @@
 
 ;; http://orgmode.org/worg/org-tutorials/org-plot.html
 (local-set-key "\M-\C-g" 'org-plot/gnuplot)
+
+;; ElDoc - part of emacs
+;; https://www.emacswiki.org/emacs/ElDoc
+(add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
+(add-hook 'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
+(add-hook 'ielm-mode-hook 'turn-on-eldoc-mode)
+;(defun my-eldoc-display-message (format-string &rest args)
+;  "Display eldoc message near point."
+;  (when format-string
+;    (pos-tip-show (apply 'format format-string args))))
+;(setq eldoc-message-function #'my-eldoc-display-message)
+
+;; https://github.com/dgutov/robe
+(add-hook 'ruby-mode-hook 'robe-mode)
+(eval-after-load 'company
+  '(push 'company-robe company-backends))
+
+;; Display Time
+(display-time-mode 1)
+(defface egoge-display-time
+  '((((type x w32 mac))
+     ;; #060525 is the background colour of my default face.
+     (:foreground "#060525" :inherit bold))
+    (((type tty))
+     (:foreground "blue")))
+  "Face used to display the time in the mode line.")
+;; This causes the current time in the mode line to be displayed in
+;; `egoge-display-time-face' to make it stand out visually.
+(setq display-time-string-forms
+      '((propertize (concat " " 24-hours ":" minutes " ")
+                    'face 'egoge-display-time)))
 
