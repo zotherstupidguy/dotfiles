@@ -2,9 +2,12 @@
 ;; zotherstupidguy@gmail.com
 ;; hackspree.com
 
+;; ref: https://martinralbrecht.wordpress.com/2014/11/03/c-development-with-emacs/
+;; ref: https://martinralbrecht.wordpress.com/2015/02/12/sage-development-with-emacs/ 
 ;; ref: http://howardism.org/Technical/Emacs/literate-programming-tutorial.html 
 ;; ref: https://ayueer.wordpress.com/2006/07/01/some-emacs-tricks-on-ruby/ 
 ;; ref: http://worace.works/2016/06/07/getting-started-with-emacs-for-ruby/
+;; ref: http://pragmaticemacs.com/emacs/advanced-undoredo-with-undo-tree/
 
 ; list the repositories containing them
 (setq package-archives '(("elpa" . "http://tromey.com/elpa/")
@@ -34,7 +37,14 @@
                       yasnippet           
                       inf-ruby
                       ess
-		      ruby-test-mode))
+                      flycheck
+                      company ;; https://company-mode.github.io/
+                      ;;magit ;; one-thing-per-commit
+                      ;;magit-popup
+                      git-timemachine ;; step forward and backward through the history of a file
+                      highlight-indentation  ;;TODO require it and use it for python projects
+                      openwith ;; open links for files and webpages into external programs 
+                      ruby-test-mode))
 
 ; install the missing packages
 (dolist (package package-list)
@@ -50,10 +60,43 @@
 ;;(load-theme 'solarized-dark t)
 (load-theme 'kooten t)
 
+;; flycheck
+;; ref: http://www.flycheck.org/  
+(require 'flycheck)
+(add-hook 'after-init-hook #'global-flycheck-mode)
+
+;; company-mode
+;; Completion will start automatically after you type a few letters.
+;; Use M-n and M-p to select, <return> to complete or <tab> to complete the common part.
+;; Search through the completions with C-s, C-r and C-o. Press M-(digit) to quickly complete with one of the first 10 candidates.
+;; ref:  https://company-mode.github.io/
+(require 'company)
+(add-hook 'after-init-hook 'global-company-mode)
+
+
+;; A Git Porcelain inside Emacs
+;;(require 'magit)
+;;(global-set-key (kbd "<f7>") 'magit-status)
+
+;; git-timemachine step forward and backward through the history of a file
+;; p Visit previous historic version
+;; n Visit next historic version
+;; w Copy the abbreviated hash of the current historic version
+;; W Copy the full hash of the current historic version
+;; g Goto nth revision
+;; q Exit the time machine. 
+;; ref: https://github.com/pidu/git-timemachine 
+(require 'git-timemachine)
+
 ;; yasnippet, docs: http://joaotavora.github.io/yasnippet/
 ;;TODO create some custom org-snippet for note-taking
 (require 'yasnippet)
 (yas-global-mode 1)
+
+;; openwith for opening files in their respective external programs
+(require 'openwith)
+(openwith-mode t)
+(setq openwith-associations '(("\\.pdf\\'" "evince" (file))))
 
 ;; org-mode configs
 ;; <s + tab to add codeblocks in org-mode
@@ -73,8 +116,12 @@
     (ruby . t)
     (sh . t)
     (python . t)
+    (latex . t)
     (emacs-lisp . t)   
     ))
+;; org-mode table behaviour to all other modes
+;; ref: http://orgmode.org/manual/Orgtbl-mode.html#Orgtbl-mode
+(add-hook 'message-mode-hook 'turn-on-orgtbl)
 
 ;; emacs-speaks-statistics
 (require 'ess)
@@ -183,20 +230,6 @@
                                            buffer-file-name))
                     (message (concat "Saved as script: 
    " buffer-file-name))))))
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (yasnippet solarized-theme simpleclip seeing-is-believing ruby-test-mode ruby-electric restart-emacs quickrun kooten-theme key-chord inf-ruby evil-org color-theme chruby better-defaults avk-emacs-themes async))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
 
 ;; create directories if they don't exist while saving a file via C-x C-s
 (add-hook 'before-save-hook
@@ -208,3 +241,32 @@
                   (make-directory dir t))))))
 
 ;; To advise function find-file to transparently create necessary directories simply press M-m which will prompt for the new directory to create,
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (csv-mode csv flycheck yasnippet solarized-theme simpleclip seeing-is-believing ruby-test-mode ruby-electric restart-emacs quickrun latex-math-preview kooten-theme key-chord inf-ruby evil-org ess color-theme chruby better-defaults avk-emacs-themes async))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; undo tree mode                                                         ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;turn on everywhere
+(global-undo-tree-mode 1)
+;; make ctrl-z undo
+(global-set-key (kbd "C-z") 'undo)
+;; make ctrl-Z redo
+(defalias 'redo 'undo-tree-redo)
+(global-set-key (kbd "C-S-z") 'redo)
+
+;; http://orgmode.org/worg/org-tutorials/org-plot.html
+(local-set-key "\M-\C-g" 'org-plot/gnuplot)
+
