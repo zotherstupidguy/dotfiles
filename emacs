@@ -54,8 +54,8 @@
 
 ;; Somewhere in your .emacs file
 (setq elfeed-feeds
-      '("https://www.upwork.com/ab/feed/jobs/rss?contractor_tier=1&verified_payment_only=1&q=rails&api_params=1&securityToken=1ef0bfc31f6c4d62393591a90cf9ae62a8c932b0279904de87c1fcb1f112c4dc7ce9e9b92a90baf1795d27a262b823bc7b14e80efb733f3ef4b783d4f4fa9cbc&userUid=743463620975747072&orgUid=743463620979941377"
-        "https://www.upwork.com/ab/feed/jobs/rss?contractor_tier=1&verified_payment_only=1&q=rails&api_params=1&securityToken=1ef0bfc31f6c4d62393591a90cf9ae62a8c932b0279904de87c1fcb1f112c4dc7ce9e9b92a90baf1795d27a262b823bc7b14e80efb733f3ef4b783d4f4fa9cbc&userUid=743463620975747072&orgUid=743463620979941377"
+      '("https://www.upwork.com/ab/feed/jobs/rss?contractor_tier=1&verified_payment_only=1&q=rails"
+        "https://www.upwork.com/ab/feed/jobs/rss?contractor_tier=1&verified_payment_only=1&q=microservices"
         "http://www.terminally-incoherent.com/blog/feed/"))
 
 ;; install the missing packages
@@ -317,9 +317,9 @@
 
 ;; log on channel activity
 ;; (setq erc-save-buffer-on-part nil
-  ;;     erc-save-queries-on-quit nil
-    ;;   erc-log-write-after-send t
-      ;; erc-log-write-after-insert t)
+;;     erc-save-queries-on-quit nil
+;;   erc-log-write-after-send t
+;; erc-log-write-after-insert t)
 
 
 ;; Cycle Buffers
