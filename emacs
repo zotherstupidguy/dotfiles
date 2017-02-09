@@ -327,10 +327,12 @@
 (global-set-key [C-left] 'previous-buffer)
 
 ;; Cycling Windows
+;; C-x o
 ;; Split windows Vertically C-x 3
 ;; Split windows Horizontally C-x 2
 ;; Code while having IRC on ;) 
-(global-set-key [(shift left)] 'windmove-left)          ; move to left window
-(global-set-key [(shift right)] 'windmove-right)        ; move to right window
-(global-set-key [(shift up)] 'windmove-up)              ; move to upper window
-(global-set-key [(shift down)] 'windmove-down)          ; move to lower window
+;; in org-mode shift left selects priority thus prefer not to activate this. 
+;; (global-set-key [(shift left)] 'windmove-left)          ; move to left window
+;; (global-set-key [(shift right)] 'windmove-right)        ; move to right window
+;; (global-set-key [(shift up)] 'windmove-up)              ; move to upper window
+;; (global-set-key [(shift down)] 'windmove-down)          ; move to lower window
