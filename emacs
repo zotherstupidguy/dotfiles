@@ -2,6 +2,15 @@
 ;; zotherstupidguy@gmail.com
 ;; hackspree.com
 
+;; blog
+;; ref:: http://gongzhitaao.org/orgcss/ (related to making teh blog pretty)
+;; ref: https://pavpanchekha.com/blog/org-mode-publish.html
+;; ref: http://orgmode.org/worg/org-tutorials/org-publish-html-tutorial.html (maybe org-publish is simpler an more straightforward than org-page)
+
+;; not used anymore, should be removed
+;; ref: http://codyreichert.github.io/blog/2015/07/05/blogging-with-emacs-and-org-mode/ (org-page, might end up using this for my blog)
+;; ref: http://blog.0x7cc.net/posts/Custom-Theme-for-Org-page.html (org-page themes how-to)
+
 ;; ref: https://mixandgo.com/blog/how-ive-convinced-emacs-to-dance-with-ruby ( A lot need to be taken from this Tut, very gooooooooooood)
 ;; ref: https://martinralbrecht.wordpress.com/2014/11/03/c-development-with-emacs/
 ;; ref: https://martinralbrecht.wordpress.com/2015/02/12/sage-development-with-emacs/ 
@@ -51,12 +60,6 @@
                      mew ;; email in emacs world 
                      elfeed  ;; emacs RSS
                      ruby-test-mode))
-
-;; Somewhere in your .emacs file
-(setq elfeed-feeds
-      '("https://www.upwork.com/ab/feed/jobs/rss?contractor_tier=1&verified_payment_only=1&q=rails"
-        "https://www.upwork.com/ab/feed/jobs/rss?contractor_tier=1&verified_payment_only=1&q=microservices"
-        "http://www.terminally-incoherent.com/blog/feed/"))
 
 ;; install the missing packages
 (dolist (package package-list)
@@ -330,9 +333,90 @@
 ;; C-x o
 ;; Split windows Vertically C-x 3
 ;; Split windows Horizontally C-x 2
+;; To close the current window, type C-x 0 (zero this time, not O).
+;; To close all windows except the current one, type C-x 1.
 ;; Code while having IRC on ;) 
 ;; in org-mode shift left selects priority thus prefer not to activate this. 
 ;; (global-set-key [(shift left)] 'windmove-left)          ; move to left window
 ;; (global-set-key [(shift right)] 'windmove-right)        ; move to right window
 ;; (global-set-key [(shift up)] 'windmove-up)              ; move to upper window
 ;; (global-set-key [(shift down)] 'windmove-down)          ; move to lower window
+
+;; RSS via ElFeed
+(setq elfeed-feeds
+      '("https://www.upwork.com/ab/feed/jobs/rss?contractor_tier=1&verified_payment_only=1&q=rails"
+        "https://www.upwork.com/ab/feed/jobs/rss?contractor_tier=1&verified_payment_only=1&q=microservices"
+        "http://www.terminally-incoherent.com/blog/feed/"))
+
+
+;; M-x org-publish-project then Publish project: org
+;; this publishes my project perfectly!
+(require 'ox-publish)
+(setq org-publish-project-alist
+      '(
+        ("org-notes"
+         :base-directory "~/Opensource/zotherstupidguy.github.io/org"
+         :base-extension "org"
+         :publishing-directory  "~/Opensource/zotherstupidguy.github.io/public"
+         :recursive t
+         :publishing-function org-html-publish-to-html
+         :headline-levels 4             ; Just the default for this project.
+         :auto-preamble t
+
+         :html-head "<link href= \"css/stylesheet.css\" rel=\"stylesheet\" type=\"text/css\" />"
+
+         ;; No author / date at the bottom
+         (setf org-html-home/up-format "")
+         ;; Export as UTF-8
+         (setf org-export-html-coding-system 'utf-8-unix)
+         ;; The defaults are just fine for mathjax and style
+         ;; However, they do not work over TLS due to mixed content errors
+         (setf org-html-mathjax-options
+               '((path "/etc/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML")
+                 (scale "100") (align "center") (indent "2em")
+                 (mathml nil)))
+         (setf org-html-mathjax-template
+               "<script type=\"text/javascript\" src=\"%PATH\"></script>")
+         (setf org-html-footnotes-section "<div id='footnotes'><!--%s-->%s</div>")
+         (setf org-html-link-up "")
+         (setf org-html-link-home "")
+         (setf org-html-preamble nil)
+         (setf org-html-postamble nil)
+         (setf org-html-scripts "")
+
+         :with-creator nil
+         :section-numbers t
+         :with-toc nil
+         :with-latex t
+
+         
+         (setf user-full-name "zotherstupidguy")
+         (setf user-mail-address "zotherstupidguy@gmail.com")
+         )
+
+        ("org-static"
+         :base-directory "~/Opensource/zotherstupidguy.github.io/org"
+         :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
+         :publishing-directory  "~/Opensource/zotherstupidguy.github.io/public"
+         :recursive t
+         :publishing-function org-publish-attachment
+         )
+        
+        ("org" :components ("org-notes" "org-static")
+         )
+        )
+      )
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(safe-local-variable-values
+   (quote
+    ((org-export-html-style . "<link rel=\"stylesheet\" type=\"text/css\" href=\"css/stylesheet.css\" />")))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
