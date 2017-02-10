@@ -49,7 +49,7 @@
                      ess
                      flycheck
                      company ;; https://company-mode.github.io/
-                     ;;magit ;; one-thing-per-commit
+                     magit ;; one-thing-per-commit
                      ;;magit-popup
                      git-timemachine ;; step forward and backward through the history of a file
                      highlight-indentation  ;;TODO require it and use it for python projects
@@ -90,8 +90,15 @@
 
 
 ;; A Git Porcelain inside Emacs
-;;(require 'magit)
-;;(global-set-key (kbd "<f7>") 'magit-status)
+;; M-x magit-status or f5 to see git status, and in the status buffer:
+;; s to stage files
+;; c c to commit (type the message then C-c C-c to actually commit)
+;; b b to switch to another branch
+;; P u to do a git push
+;; F u to do a git pull
+;; try to press TAB
+(require 'magit)
+(global-set-key (kbd "<f5>") 'magit-status)
 
 ;; git-timemachine step forward and backward through the history of a file
 ;; p Visit previous historic version
@@ -346,7 +353,7 @@
 (setq elfeed-feeds
       '("https://www.upwork.com/ab/feed/jobs/rss?contractor_tier=1&verified_payment_only=1&q=rails"
         "https://www.upwork.com/ab/feed/jobs/rss?contractor_tier=1&verified_payment_only=1&q=microservices"
-        "http://www.terminally-incoherent.com/blog/feed/"))
+        ))
 
 
 ;; M-x org-publish-project then Publish project: org
@@ -406,17 +413,19 @@
          )
         )
       )
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(safe-local-variable-values
-   (quote
-    ((org-export-html-style . "<link rel=\"stylesheet\" type=\"text/css\" href=\"css/stylesheet.css\" />")))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+
+(defun auto-publish-blog-hook ()
+  "Auto publish blog on save"
+  ;; check if saved file is part of blog
+  (if (org-publish-get-project-from-filename
+       (buffer-file-name (buffer-base-buffer)) 'up)
+
+      (save-excursion (org-publish-current-file)
+                      (message "auto published blog") nil)
+    )
+  )
+
+;; Enable auto-publish when a org file in blog is saved
+(add-hook 'org-mode-hook
+          (lambda ()
+            (add-hook 'after-save-hook 'auto-publish-blog-hook nil nil)))
