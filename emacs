@@ -123,6 +123,7 @@
 ;; org-mode configs
 ;; <s + tab to add codeblocks in org-mode
 ;; C-c' to edit codeblocks in their respective modes (C-c' to exit and go back to org-mode)
+;; M-left & M-right to choose where to move org sub-headings
 (require 'org)
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
@@ -395,7 +396,6 @@
          :section-numbers t
          :with-toc nil
          :with-latex t
-
          
          (setf user-full-name "zotherstupidguy")
          (setf user-mail-address "zotherstupidguy@gmail.com")
@@ -429,3 +429,8 @@
 (add-hook 'org-mode-hook
           (lambda ()
             (add-hook 'after-save-hook 'auto-publish-blog-hook nil nil)))
+
+;; org-capture
+;; - write template files (e.g. hackerrank.txt)
+;; - Press your capture f6 key and shift-c to configure
+(global-set-key (kbd "<f6>") 'org-capture)
