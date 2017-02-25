@@ -19,6 +19,9 @@
 ;; ref: http://worace.works/2016/06/07/getting-started-with-emacs-for-ruby/
 ;; ref: http://pragmaticemacs.com/emacs/advanced-undoredo-with-undo-tree/
 
+
+
+
 ;; list the repositories containing them
 (setq package-archives '(("elpa" . "http://tromey.com/elpa/")
                          ("gnu" . "http://elpa.gnu.org/packages/")
@@ -59,7 +62,12 @@
                      pos-tip  ;; https://www.topbug.net/blog/2016/11/03/emacs-display-function-or-variable-information-near-point-cursor/
                      mew ;; email in emacs world 
                      elfeed  ;; emacs RSS
-                     ruby-test-mode))
+                     restclient
+                     ob-restclient
+                     ruby-test-mode
+                     org-fstree
+		     ;; pdf-tools ;; to read pdf. https://github.com/politza/pdf-tools  
+		     ))
 
 ;; install the missing packages
 (dolist (package package-list)
@@ -70,10 +78,40 @@
 
 (setq inhibit-splash-screen t
       initial-scratch-message nil
-      initial-major-mode 'ruby-mode)
+      ;; initial-major-mode 'ruby-mode)
+      initial-major-mode 'c-mode)
 
-;; (load-theme 'solarized-dark t)
-(load-theme 'kooten t)
+(load-theme 'solarized-dark t)
+;; (load-theme 'kooten t)
+
+;; pdf-tools
+;; (pdf-tools-install)
+
+
+;; restclient
+;; ref: http://jakemccrary.com/blog/2014/07/04/using-emacs-to-explore-an-http-api/
+;; ref: https://www.youtube.com/watch?v=fTvQTMOGJaw
+(require 'restclient)
+
+;; ob-restclient.el - An extension to restclient.el for emacs that provides org-babel support
+;; #+BEGIN_SRC restclient
+;;   GET http://example.com
+;; #+END_SRC
+;; #+RESULTS:
+;; #+BEGIN_SRC html
+;; <!doctype html>
+;; <html>
+;; <head>
+;; ...
+;; </head>
+;; </html>
+;; #+END_SRC
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((restclient . t)))
+
+
+(require 'org-fstree)
 
 ;; flycheck
 ;; ref: http://www.flycheck.org/  
@@ -137,7 +175,7 @@
  '( (perl . t)         
     (C . t)
     (ruby . t)
-    (sh . t)
+    (shell . t)
     (python . t)
     (latex . t)
     (emacs-lisp . t)   
@@ -290,6 +328,7 @@
 
 ;; https://github.com/dgutov/robe
 (add-hook 'ruby-mode-hook 'robe-mode)
+
 (eval-after-load 'company
   '(push 'company-robe company-backends))
 
@@ -371,7 +410,9 @@
          :headline-levels 4             ; Just the default for this project.
          :auto-preamble t
 
-         :html-head "<link href= \"css/stylesheet.css\" rel=\"stylesheet\" type=\"text/css\" />"
+         :html-head "
+<link href= \"css/stylesheet.css\" rel=\"stylesheet\" type=\"text/css\" />
+"
 
          ;; No author / date at the bottom
          (setf org-html-home/up-format "")
@@ -414,6 +455,7 @@
         )
       )
 
+
 (defun auto-publish-blog-hook ()
   "Auto publish blog on save"
   ;; check if saved file is part of blog
@@ -422,15 +464,179 @@
 
       (save-excursion (org-publish-current-file)
                       (message "auto published blog") nil)
-    )
+      )
   )
 
 ;; Enable auto-publish when a org file in blog is saved
 (add-hook 'org-mode-hook
-          (lambda ()
-            (add-hook 'after-save-hook 'auto-publish-blog-hook nil nil)))
+	  (lambda ()
+	    (add-hook 'after-save-hook 'auto-publish-blog-hook nil nil)
+	    ;; (local-set-key  (kbd "C-d C-t") 'self-insert-command)
+	    ;; (global-set-key (kbd "C-d C-t") 'self-insert-command);
+	    );
+	  ;; use my intendation  
+	  (setq-local org-list-indent-offset 4);
+	  )
 
 ;; org-capture
 ;; - write template files (e.g. hackerrank.txt)
 ;; - Press your capture f6 key and shift-c to configure
-(global-set-key (kbd "<f6>") 'org-capture)
+(define-key global-map "\C-cc" 'org-capture)
+;; force UTF-8
+(setq org-export-coding-system 'utf-8)
+(setq org-default-notes-file "~/Opensource/zotherstupidguy.github.io/org/index.org")
+
+;; configure org-capture templates
+(setq org-capture-templates
+      
+      '(("h" ;; hotkey
+         "hackerrank problem" ;; name
+         entry ;; type
+         ;; heading type and title
+         (file+headline org-default-notes-file "Problems")
+         "* TODO %? 
+  :PROPERTIES:   
+  :SCHEDULED: <2017-02-19 Sun +2d/4d>
+:DESCRIPTON: hackerrank problem, found in....
+  :Difficulty: easy  
+  :CATEGORY: none 
+  :Source:    none 
+  :ZPT:      1
+  :END:
+** :problem:
+   -  something
+*** :input: 
+    - none 
+*** :constraints:
+    - none
+*** :output: 
+- none
+*** :explanation:
+- none
+** :solution:
+*** :questions:
+    - none
+*** :predicates:   
+   - none
+*** :implications:
+- none
+    #+BEGIN_SRC ruby
+    #+END_SRC
+    #+BEGIN_SRC C 
+    #+END_SRC
+** References       
+-  none
+
+   ----- 
+ %i\n %a") ;; template
+
+        
+
+      ("c" "codeforces" ;; hotkey
+       entry ;;type
+       (file+headline org-default-notes-file "Problems")
+       (file "~/Opensource/zotherstupidguy.github.io/org/templates/codeforces.orgcaptmpl")
+       
+      ))) ;; snip
+
+
+
+
+
+;; Figure out what is a Journal and if it is a nice thing to turn my blog into a journal with timestamps or not?
+;; ("j" "Journal entry" entry (file+datetree "~/org/journal.org") (file "~/.emacs.d/org~templates/journal.orgcaptmpl"))
+
+;; TODO Select-from-list, use this to supercharge competitive programming practices.
+;; %^{Tidbit type|quote|zinger|one-liner|textlet}
+;; ("b" "Tidbit: quote, zinger, one-liner or textlet" entry
+;;  (file+headline org-default-notes-file "Tidbits")
+;;  (file "~/.emacs.d/org-templates/tidbit.orgcaptmpl")
+;; )
+
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; How to make tabs :)
+;; http://blog.binchen.org/posts/easy-indentation-setup-in-emacs-for-web-development.html 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; make tab key, insert tab in every mode
+;; http://www.pement.org/emacs_tabs.htm#one_thing
+;; http://emacs.stackexchange.com/questions/24351/how-to-make-tab-key-shift-test-after-cursor-in-evil-mode-insert-state
+;; (global-set-key (kbd "C-i") 'self-insert-command); 
+(setq-default indent-tabs-mode nil)
+;;(define-key text-mode-map (kbd "<tab>") 'tab-to-tab-stop)
+(define-key text-mode-map (kbd "C-i") 'tab-to-tab-stop)
+(setq tab-stop-list '(4 8 12 16 20 24 28 32 36 40 44 48 52 56 60
+		      64 68 72 76 80 84 88 92 96 100 104 108 112
+		      116 120))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; problems.el sourcecode here, should be extracted and deployed to MELPA or similar later on
+;;; problems.el aims to interact with competitive programming websites and 
+;; require restclient
+;; very helpful emacsrocks video about restclient https://www.youtube.com/watch?v=fTvQTMOGJaw
+;;(require 'restclient)
+;; (defun json-read-file (file)
+;; "Read the first JSON object contained in FILE and return it."
+;; (with-temp-buffer
+;; (insert-file-contents file)
+;; (goto-char (point-min))
+;;    (json-read)))
+
+(require 'json)
+;; (setq data (json-read-from-string " "))
+
+
+;; this saves the restclient response with the extenstion .http, could be useful!
+;; source: https://noahfrederick.com/log/restclient-for-emacs
+;; (use-package restclient  :mode ("\\.http\\'" . restclient-mode))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; problems.el ends here
+
+;;; .emacs ends here
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (org-babel-eval-in-repl restclient yasnippet solarized-theme simpleclip seeing-is-believing ruby-test-mode ruby-electric robe restart-emacs quickrun pos-tip org-pomodoro org-page openwith mew magit latex-math-preview kooten-theme key-chord highlight-indentation git-timemachine git-auto-commit-mode flycheck evil-org ess elfeed csv-mode csv company color-theme chruby better-defaults avk-emacs-themes))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+
+;; delete everything beyond this point
+;;; 
+;; http://emacs.stackexchange.com/questions/28222/how-to-make-tab-work-in-org-mode-when-combined-with-evil-mode 
+;;(evil-define-key 'normal org-mode-map (kbd "<tab>") #'org-cycle)
+;; (evil-define-key 'insert org-mode-map (kbd "<tab>") #'self-insert-command);
+
+
+;; trying to fix tab in org-mode while in evil mode
+;; http://stackoverflow.com/questions/22878668/emacs-org-mode-evil-mode-tab-key-not-working
+;; (setq evil-want-C-i-jump nil)
+;; (when evil-want-C-i-jump (define-key evil-motion-state-map (kbd "C-i") 'evil-jump-forward))
+
+
