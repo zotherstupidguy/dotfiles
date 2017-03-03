@@ -158,11 +158,14 @@ bar {
 ###### zotherstupidguy conf #######
 #$TERMINAL = terminator  
 
-# weechat
+# weechat (tab for nada hahaha )
 bindsym $mod+Tab exec i3-sensible-terminal -x weechat &
 
-# emacs
+# emacs (c for code)
 bindsym $mod+c exec emacs
 
-# browser 
+# browser (b for browser)
 bindsym $mod+b exec chromium 
+
+# vlc (m for media) 
+bindsym $mod+m exec vlc
