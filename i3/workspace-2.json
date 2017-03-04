@@ -1,0 +1,47 @@
+// vim:ts=4:sw=4:et
+{
+    "border": "normal",
+    "current_border_width": 2,
+    "floating": "auto_off",
+    "geometry": {
+       "height": 358,
+       "width": 562,
+       "x": 0,
+       "y": 0
+    },
+    "name": "i3-save-tree --workspace 2 > ~/.config/i3/workspace-2.json @ zbox",
+    "percent": 0.5,
+    "swallows": [
+       {
+       // "class": "^Terminator$",
+       // "instance": "^terminator$",
+       // "title": "^i3\\-save\\-tree\\ \\-\\-workspace\\ 2\\ \\>\\ \\~\\/\\.config\\/i3\\/workspace\\-2\\.json\\ \\@\\ zbox$",
+       // "transient_for": "^$"
+       }
+    ],
+    "type": "con"
+}
+
+{
+    "border": "normal",
+    "current_border_width": 2,
+    "floating": "auto_off",
+    "geometry": {
+       "height": 358,
+       "width": 562,
+       "x": 0,
+       "y": 0
+    },
+    "name": "./link @ zbox",
+    "percent": 0.5,
+    "swallows": [
+       {
+       // "class": "^Terminator$",
+       // "instance": "^terminator$",
+       // "title": "^\\.\\/link\\ \\@\\ zbox$",
+       // "transient_for": "^$"
+       }
+    ],
+    "type": "con"
+}
+
