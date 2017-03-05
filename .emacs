@@ -197,7 +197,7 @@
 ;; Show line numbers
 (global-linum-mode)
 (setq linum-format "%d ")
-(setq-default left-fringe-width  10)
+(setq-default left-fringe-width  20)
 ;;(setq-default right-fringe-width  0)
 ;;(set-face-attribute 'fringe nil :background "yellow")
 
