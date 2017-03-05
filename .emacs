@@ -20,8 +20,6 @@
 ;; ref: http://pragmaticemacs.com/emacs/advanced-undoredo-with-undo-tree/
 
 
-
-
 ;; list the repositories containing them
 (setq package-archives '(("elpa" . "http://tromey.com/elpa/")
                          ("gnu" . "http://elpa.gnu.org/packages/")
@@ -204,16 +202,18 @@
 ;;(set-face-attribute 'fringe nil :background "yellow")
 
 
+
 ;; activate evil mode
 (require 'evil)
 (evil-mode 1)
 
 ;; Typography
-;;(set-face-attribute 'default nil
-;;	    :family "Source Code Pro"
-;;	    :height 150
-;;	    :weight 'normal
-;;	    :width 'normal)
+(set-face-attribute 'default nil
+                    :family "Source Code Pro"
+                    :height 100
+                    :weight 'normal
+                    :width 'normal)
+;;(set-face-attribute 'default nil :height 80)
 
 ;;(require 'helm)
 ;;(require 'helm-projectile)
@@ -649,3 +649,13 @@
 ;; (when evil-want-C-i-jump (define-key evil-motion-state-map (kbd "C-i") 'evil-jump-forward))
 
 
+;;  
+;; (setq line-move-visual t)
+
+;; show column number
+(setq column-number-mode t)
+
+;; truncate
+;; (set-default 'truncate-lines t)
+
+(setq-default auto-fill-function 'do-auto-fill)
