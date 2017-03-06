@@ -658,4 +658,6 @@
 ;; truncate
 ;; (set-default 'truncate-lines t)
 
-(setq-default auto-fill-function 'do-auto-fill)
+(add-hook 'text-mode-hook 'turn-on-auto-fill)
+
+;; (setq-default auto-fill-function 'do-auto-fill)
