@@ -661,3 +661,6 @@
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 
 ;; (setq-default auto-fill-function 'do-auto-fill)
+
+;; to scroll a single line at a time
+(setq scroll-conservatively 9001)
