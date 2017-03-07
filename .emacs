@@ -619,6 +619,23 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; problems.el ends here
 
+;; show column number
+(setq column-number-mode t)
+
+;; truncate
+;; (set-default 'truncate-lines t)
+
+(add-hook 'text-mode-hook 'turn-on-auto-fill)
+
+;; (setq-default auto-fill-function 'do-auto-fill)
+
+;; to scroll a single line at a time
+(setq scroll-conservatively 9001)
+
+;; highlight current line
+(global-hl-line-mode t);
+
+
 ;;; .emacs ends here
 
 (custom-set-variables
@@ -636,7 +653,6 @@
  ;; If there is more than one, they won't work right.
  )
 
-;; delete everything beyond this point
 ;;; 
 ;; http://emacs.stackexchange.com/questions/28222/how-to-make-tab-work-in-org-mode-when-combined-with-evil-mode 
 ;;(evil-define-key 'normal org-mode-map (kbd "<tab>") #'org-cycle)
@@ -647,20 +663,3 @@
 ;; http://stackoverflow.com/questions/22878668/emacs-org-mode-evil-mode-tab-key-not-working
 ;; (setq evil-want-C-i-jump nil)
 ;; (when evil-want-C-i-jump (define-key evil-motion-state-map (kbd "C-i") 'evil-jump-forward))
-
-
-;;  
-;; (setq line-move-visual t)
-
-;; show column number
-(setq column-number-mode t)
-
-;; truncate
-;; (set-default 'truncate-lines t)
-
-(add-hook 'text-mode-hook 'turn-on-auto-fill)
-
-;; (setq-default auto-fill-function 'do-auto-fill)
-
-;; to scroll a single line at a time
-(setq scroll-conservatively 9001)
