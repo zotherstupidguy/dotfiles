@@ -1,5 +1,4 @@
-;; Mohamed Fouad
-;; zotherstupidguy@gmail.com
+;; Mohamed Fouad ;; zotherstupidguy@gmail.com
 ;; hackspree.com
 
 ;; blog
@@ -385,10 +384,10 @@
 ;; (iswitchb-mode 1) ;;http://stackoverflow.com/questions/7394289/how-can-i-more-easily-switch-between-buffers-in-emacs
 ;;(global-set-key [C-right] 'next-buffer)
 ;;(global-set-key [C-left] 'previous-buffer)
-;;(global-set-key [M-tab] 'next-buffer)
-;;(global-set-key [C-tab] 'previous-buffer)
-(global-set-key [tab] 'next-buffer)
-(global-set-key [backtab] 'previous-buffer)
+(global-set-key [M-tab] 'next-buffer)
+;;(global-set-key [M-backtab] 'previous-buffer)
+;;(global-set-key [tab] 'next-buffer)
+;;(global-set-key [backtab] 'previous-buffer)
 
 ;; Cycling Windows
 ;; C-x o
