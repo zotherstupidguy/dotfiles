@@ -152,7 +152,7 @@ bindsym $mod+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-        status_command i3status
+status_command i3status
 }
 
 ###### zotherstupidguy conf #######
@@ -175,9 +175,53 @@ bindsym $mod+m exec vlc
 #exec --no-startup-id i3-msg 'workspace 1; exec firefox; workspace 2; exec urxvt; workspace 1'
 #exec --no-startup-id "i3-msg 'workspace 2; append_layout ~/.config/i3/workspace-2.json'"
 
-
 # In your i3 configuration file, you can autostart i3-msg like this:
 # (Note that those lines will quickly become long, so typically you would store
 #  them in a script with proper indentation.)
-exec --no-startup-id "i3-msg 'workspace 1:Compete; append_layout ~/.config/i3/workspace-1.json'; exec --no-startup-id emacs; exec --no-startup-id vlc; exec --no-startup-id chromium;"
+#exec --no-startup-id "i3-msg 'workspace 1:Compete; append_layout ~/.config/i3/workspace-1.json'; exec --no-startup-id emacs; exec --no-startup-id vlc; exec --no-startup-id chromium;"
 #exec --nostartup-id i3-sensible-terminal -x weechat &
+#exec --no-startup-id i3-msg 'workspace 1:Web; exec /usr/bin/firefox'
+
+#exec --no-startup-id i3-msg 'workspace 1:Study; append_layout ~/.config/i3/workspace-1.json;'
+#exec --no-startup-id i3-msg 'workspace 2:Compete;'
+#exec --no-startup-id i3-msg 'workspace 3:IRC;'
+#exec --no-startup-id i3-msg 'workspace 4:Sources;'
+
+#exec --no-startup-id "i3-msg 'workspace 1:Study; append_layout ~/.config/i3/workspace-1.json;', 'exec emacs;exec vlc;exec chromium;'"
+#exec --no-startup-id "i3-msg 'workspace 2:Compete; append_layout ~/.config/i3/workspace-2.json;', 'exec emacs;exec weechat;exec chromium;'"
+
+# misc: weechat irc, media, downloads and sources
+exec --no-startup-id "i3-msg 'workspace 1:misc; append_layout ~/.config/i3/workspace-1.json;'"
+
+# google codejam
+exec --no-startup-id "i3-msg 'workspace 2:gcj; exec emacs;exec i3-sensible-terminal &;exec chromium;'"
+
+# codeforces
+exec --no-startup-id "i3-msg 'workspace 3:codeforces; exec emacs;exec i3-sensible-terminal &;exec chromium;'"
+
+# hackerrank
+exec --no-startup-id "i3-msg 'workspace 4:hackerrank; exec emacs;exec i3-sensible-terminal &;exec chromium;'"
+
+# kaggle
+exec --no-startup-id "i3-msg 'workspace 5:kaggle; exec emacs;exec i3-sensible-terminal &;exec chromium;'"
+
+# mit
+exec --no-startup-id "i3-msg 'workspace 6:mit; exec emacs;exec i3-sensible-terminal &;exec chromium;'"
+
+# stanford
+exec --no-startup-id "i3-msg 'workspace 7:stanford; exec emacs;exec i3-sensible-terminal &;exec chromium;'"
+
+# harvard 
+exec --no-startup-id "i3-msg 'workspace 8:harvard; exec emacs;exec i3-sensible-terminal &;exec chromium;'"
+
+# gitlapse 
+exec --no-startup-id "i3-msg 'workspace 9:gitlapse; exec emacs;exec i3-sensible-terminal &;exec chromium;'"
+
+# hackspree
+exec --no-startup-id "i3-msg 'workspace 10:hackspree; exec emacs;exec i3-sensible-terminal &;exec chromium;'"
+
+
+
+## Shortcuts
+## -----------
+## logout:  shift+MOD+e

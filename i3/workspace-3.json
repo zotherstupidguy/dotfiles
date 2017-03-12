@@ -1,100 +1,47 @@
 // vim:ts=4:sw=4:et
 {
-    // splitv split container with 1 children
-    "border": "normal",
+    "border": "none",
+    "current_border_width": 2,
     "floating": "auto_off",
-    "layout": "splitv",
+    "geometry": {
+       "height": 663,
+       "width": 602,
+       "x": 0,
+       "y": 0
+    },
+    "name": "Recent Documents",
     "percent": 0.5,
-    "type": "con",
-    "nodes": [
-        {
-            "border": "normal",
-            "current_border_width": 2,
-            "floating": "auto_off",
-            "geometry": {
-               "height": 685,
-               "width": 752,
-               "x": 0,
-               "y": 0
-            },
-            "name": "emacs@zbox",
-            "percent": 1,
-            "swallows": [
-               {
-               // "class": "^Emacs$",
-               // "instance": "^emacs$",
-               // "title": "^emacs\\@zbox$",
-               // "transient_for": "^$"
-               }
-            ],
-            "type": "con"
-        }
-    ]
+    "swallows": [
+       {
+       // "class": "^Evince$",
+       // "instance": "^evince$",
+       // "title": "^Recent\\ Documents$",
+       // "transient_for": "^$"
+       }
+    ],
+    "type": "con"
 }
 
 {
-    // splitv split container with 2 children
     "border": "normal",
+    "current_border_width": 2,
     "floating": "auto_off",
-    "layout": "splitv",
+    "geometry": {
+       "height": 685,
+       "width": 752,
+       "x": 0,
+       "y": 0
+    },
+    "name": "emacs@zbox",
     "percent": 0.5,
-    "type": "con",
-    "nodes": [
-        {
-            "border": "normal",
-            "current_border_width": 2,
-            "floating": "auto_off",
-            "geometry": {
-               "height": 729,
-               "width": 452,
-               "x": 2,
-               "y": 18
-            },
-            "name": "Google CEO Sergey Brin, \"I didn't see Artificial Intelligence coming. How wrong was I?\" - YouTube - Chromium",
-            "percent": 0.551820728291317,
-            "swallows": [
-               {
-               // "class": "^Chromium$",
-               // "instance": "^chromium$",
-               // "title": "^Google\\ CEO\\ Sergey\\ Brin\\,\\ \\\"I\\ didn\\'t\\ see\\ Artificial\\ Intelligence\\ coming\\.\\ How\\ wrong\\ was\\ I\\?\\\"\\ \\-\\ YouTube\\ \\-\\ Chromium$",
-               // "transient_for": "^$",
-               // "window_role": "^browser$"
-               }
-            ],
-            "type": "con"
-        },
-        {
-            // splith split container with 1 children
-            "border": "normal",
-            "floating": "auto_off",
-            "layout": "splith",
-            "percent": 0.448179271708683,
-            "type": "con",
-            "nodes": [
-                {
-                    "border": "normal",
-                    "current_border_width": 2,
-                    "floating": "auto_off",
-                    "geometry": {
-                       "height": 358,
-                       "width": 562,
-                       "x": 0,
-                       "y": 0
-                    },
-                    "name": "WeeChat 1.7",
-                    "percent": 1,
-                    "swallows": [
-                       {
-                       // "class": "^Terminator$",
-                       // "instance": "^terminator$",
-                       // "title": "^WeeChat\\ 1\\.7$",
-                       // "transient_for": "^$"
-                       }
-                    ],
-                    "type": "con"
-                }
-            ]
-        }
-    ]
+    "swallows": [
+       {
+       // "class": "^Emacs$",
+       // "instance": "^emacs$",
+       // "title": "^emacs\\@zbox$",
+       // "transient_for": "^$"
+       }
+    ],
+    "type": "con"
 }
 
