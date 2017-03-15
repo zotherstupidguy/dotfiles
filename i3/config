@@ -9,6 +9,12 @@
 #
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
+## zotherstupidguy config shortcuts
+## -----------
+## logout:  shift+MOD+e
+## switch to workspace
+
+
 set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
@@ -92,36 +98,26 @@ bindsym $mod+a focus parent
 # focus the child container
 #bindsym $mod+d focus child
 
-# switch to workspace
-bindsym $mod+1 workspace 1
-bindsym $mod+2 workspace 2
-bindsym $mod+3 workspace 3
-bindsym $mod+4 workspace 4
-bindsym $mod+5 workspace 5
-bindsym $mod+6 workspace 6
-bindsym $mod+7 workspace 7
-bindsym $mod+8 workspace 8
-bindsym $mod+9 workspace 9
-bindsym $mod+0 workspace 10
 
 # move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace 1
-bindsym $mod+Shift+2 move container to workspace 2
-bindsym $mod+Shift+3 move container to workspace 3
-bindsym $mod+Shift+4 move container to workspace 4
-bindsym $mod+Shift+5 move container to workspace 5
-bindsym $mod+Shift+6 move container to workspace 6
-bindsym $mod+Shift+7 move container to workspace 7
-bindsym $mod+Shift+8 move container to workspace 8
-bindsym $mod+Shift+9 move container to workspace 9
-bindsym $mod+Shift+0 move container to workspace 10
+#bindsym $mod+Shift+1 move container to workspace 1
+#bindsym $mod+Shift+2 move container to workspace 2
+#bindsym $mod+Shift+3 move container to workspace 3
+#bindsym $mod+Shift+4 move container to workspace 4
+#bindsym $mod+Shift+5 move container to workspace 5
+#bindsym $mod+Shift+6 move container to workspace 6
+#bindsym $mod+Shift+7 move container to workspace 7
+#bindsym $mod+Shift+8 move container to workspace 8
+##bindsym $mod+Shift+9 move container to workspace 9
+#bindsym $mod+Shift+0 move container to workspace 10
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Shift+e exec "i3-msg exit"
+#bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -170,58 +166,36 @@ bindsym $mod+b exec chromium
 # vlc (m for media) 
 bindsym $mod+m exec vlc
 
+# sets the worksapces
+bindsym $mod+1 workspace 1:misc; layout tabbed;
+bindsym $mod+2 workspace 2:gcj; layout tabbed;
+bindsym $mod+3 workspace 3:codeforces; layout tabbed;
+bindsym $mod+4 workspace 4:kaggle; layout tabbed;
+bindsym $mod+5 workspace 5:mit; layout tabbed;
+bindsym $mod+6 workspace 6:stanford; layout tabbed;
+bindsym $mod+7 workspace 7:harvard; layout tabbed;
+bindsym $mod+8 workspace 8:gitlapse; layout tabbed;
+bindsym $mod+9 workspace 9:hackspree; layout tabbed;
+bindsym $mod+0 workspace 10:hackerrank; layout tabbed;
 
-#exec --no-startup-id i3-msg 'workspace 1:Web; exec /usr/bin/firefox'
-#exec --no-startup-id i3-msg 'workspace 1; exec firefox; workspace 2; exec urxvt; workspace 1'
-#exec --no-startup-id "i3-msg 'workspace 2; append_layout ~/.config/i3/workspace-2.json'"
+# loads the workspaces 
+bindsym $mod+Shift+1 workspace 1:misc; exec emacs; exec chromium;
+bindsym $mod+Shift+2 workspace 2:gcj; exec chromium;
+#bindsym $mod+Shift+Alt+1 exec --no-startup-id i3-msg 'workspace 1:misc; append_layout ~/.config/i3/workspace-1.json; exec emacs, exec vlc, exec chromium;'
+#bindsym $mod+Shift+Alt+2 exec --no-startup-id i3-msg "'workspace 2:gcj; append_layout ~/.config/i3/workspace-2.json; 'exec emacs' 'exec weechat' 'exec chromium;'"
 
-# In your i3 configuration file, you can autostart i3-msg like this:
-# (Note that those lines will quickly become long, so typically you would store
-#  them in a script with proper indentation.)
-#exec --no-startup-id "i3-msg 'workspace 1:Compete; append_layout ~/.config/i3/workspace-1.json'; exec --no-startup-id emacs; exec --no-startup-id vlc; exec --no-startup-id chromium;"
-#exec --nostartup-id i3-sensible-terminal -x weechat &
-#exec --no-startup-id i3-msg 'workspace 1:Web; exec /usr/bin/firefox'
-
-#exec --no-startup-id i3-msg 'workspace 1:Study; append_layout ~/.config/i3/workspace-1.json;'
-#exec --no-startup-id i3-msg 'workspace 2:Compete;'
-#exec --no-startup-id i3-msg 'workspace 3:IRC;'
-#exec --no-startup-id i3-msg 'workspace 4:Sources;'
-
-#exec --no-startup-id "i3-msg 'workspace 1:Study; append_layout ~/.config/i3/workspace-1.json;', 'exec emacs;exec vlc;exec chromium;'"
-#exec --no-startup-id "i3-msg 'workspace 2:Compete; append_layout ~/.config/i3/workspace-2.json;', 'exec emacs;exec weechat;exec chromium;'"
-
+#bindsym $mod+2 workspace 2:console; layout tabbed; exec [ $( ps -eo cmd | grep -c '[u] emacs' ) -eq 2 ] && emacs
+#exec 'i3-msg workspace 2:gcj; exec emacs; exec weechat; exec chromium;'
+#bindsym $mod+2 workspace 2:gcj; exec emacs; exec weechat; exec chromium;
+#bindsym $mod+3 exec --no-startup-id "i3-msg 'workspace 3:codeforces; append_layout ~/.config/i3/workspace-3.json;', 'exec emacs;exec weechat;exec chromium;'"
+#emacs;exec i3-sensible-terminal &;exec chromium;
 # misc: weechat irc, media, downloads and sources
-exec --no-startup-id "i3-msg 'workspace 1:misc; append_layout ~/.config/i3/workspace-1.json;'"
-
-# google codejam
-exec --no-startup-id "i3-msg 'workspace 2:gcj; exec emacs;exec i3-sensible-terminal &;exec chromium;'"
-
-# codeforces
-exec --no-startup-id "i3-msg 'workspace 3:codeforces; exec emacs;exec i3-sensible-terminal &;exec chromium;'"
-
-# hackerrank
-exec --no-startup-id "i3-msg 'workspace 4:hackerrank; exec emacs;exec i3-sensible-terminal &;exec chromium;'"
-
-# kaggle
-exec --no-startup-id "i3-msg 'workspace 5:kaggle; exec emacs;exec i3-sensible-terminal &;exec chromium;'"
-
-# mit
-exec --no-startup-id "i3-msg 'workspace 6:mit; exec emacs;exec i3-sensible-terminal &;exec chromium;'"
-
-# stanford
-exec --no-startup-id "i3-msg 'workspace 7:stanford; exec emacs;exec i3-sensible-terminal &;exec chromium;'"
-
-# harvard 
-exec --no-startup-id "i3-msg 'workspace 8:harvard; exec emacs;exec i3-sensible-terminal &;exec chromium;'"
-
-# gitlapse 
-exec --no-startup-id "i3-msg 'workspace 9:gitlapse; exec emacs;exec i3-sensible-terminal &;exec chromium;'"
-
-# hackspree
-exec --no-startup-id "i3-msg 'workspace 10:hackspree; exec emacs;exec i3-sensible-terminal &;exec chromium;'"
+#exec --no-startup-id "i3-msg 'workspace 1:misc; append_layout ~/.config/i3/workspace-1.json;'"
+#exec --no-startup-id "i3-msg 'workspace 2:gcj; append_layout ~/.config/i3/workspace-2.json;', 'exec emacs;exec weechat;exec chromium;'"
+#bindsym $mod+2 workspace 2:web; layout tabbed; exec [ $(ps h -C vimb | wc -l) = 0 ] && /usr/bin/vimb -s
+#bindsym $mod+3 workspace 3:vim; layout splith; exec [ $( ps -eo cmd | grep -c '[u]rxvt -title uvim -e vim' ) -eq 2 ] && urxvt -title uvim -e vim
+#bindsym $mod+4 workspace 4:mail-gmail; layout tabbed; exec [ $( ps -eo cmd | grep -c '[u]rxvt -title muttgmail -e mutt' ) -eq 2 ] && urxvt -title muttgmail -e mutt -e "source ~/.mutt/gmail.com"
+#bindsym $mod+5 workspace 5:mail-Perso; layout tabbed; exec [ $( ps -eo cmd | grep -c '[u]rxvt -title muttperso -e mutt' ) -eq 2 ] && urxvt -title muttperso -e mutt -e "source ~/.mutt/newmanity.com"
+#bindsym $mod+6 workspace 6:mail-JIT; layout tabbed; exec [ $( ps -eo cmd | grep -c '[u]rxvt -title muttjit -e mutt' ) -eq 2 ] && urxvt -title muttjit -e mutt -e "source ~/.mutt/jobintree.com"
 
 
-
-## Shortcuts
-## -----------
-## logout:  shift+MOD+e
