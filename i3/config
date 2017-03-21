@@ -15,6 +15,9 @@
 ## switch to workspace
 
 
+# setting the default workspace 
+workspace_layout stacking 
+
 set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
@@ -98,7 +101,6 @@ bindsym $mod+a focus parent
 # focus the child container
 #bindsym $mod+d focus child
 
-
 # move focused container to workspace
 #bindsym $mod+Shift+1 move container to workspace 1
 #bindsym $mod+Shift+2 move container to workspace 2
@@ -167,34 +169,35 @@ bindsym $mod+b exec chromium
 bindsym $mod+m exec vlc
 
 ### beginning of the worksapces ###
+
 # misc (downloads)
-bindsym $mod+1 workspace 1:misc; layout tabbed;
+bindsym $mod+1 workspace 1:misc; layout default;
 bindsym $mod+Shift+1 workspace 1:misc; exec weechat; exec chromium;
 
 # irc
-bindsym $mod+2 workspace 2:irc; layout tabbed;
+bindsym $mod+2 workspace 2:irc; layout default;
 bindsym $mod+Shift+2 workspace 2:irc; exec i3-sensible-terminal -x weechat &
 
 # knowledge (mit, standord, harvard)
-bindsym $mod+3 workspace 3:opensource; layout tabbed;
+bindsym $mod+3 workspace 3:opensource; layout default;
 bindsym $mod+Shift+3 workspace 3:opensource; exec chromium;
 
 # opensource (gitlapse, hackspree)
-bindsym $mod+4 workspace 4:practice; layout tabbed;
+bindsym $mod+4 workspace 4:practice; layout default;
 bindsym $mod+Shift+4 workspace 4:practice; exec chromium;
 
 # problem day (gcj, codeforces, kaggle)
-bindsym $mod+5 workspace 5:problemday; layout tabbed;
+bindsym $mod+5 workspace 5:problemday; layout default;
 bindsym $mod+Shift+5 workspace 5:problemday; exec chromium;
 
 # contest day
-bindsym $mod+6 workspace 6:A; layout tabbed;
+bindsym $mod+6 workspace 6:A; layout default;
 bindsym $mod+Shift+6 workspace 6:A; exec emacs; exec chromium; exec i3-sensible-terminal;
-bindsym $mod+7 workspace 7:B; layout tabbed;
+bindsym $mod+7 workspace 7:B; layout default;
 bindsym $mod+Shift+7 workspace 7:B; exec emacs; exec chromium; exec i3-sensible-terminal;
-bindsym $mod+8 workspace 8:C; layout tabbed;
+bindsym $mod+8 workspace 8:C; layout default;
 bindsym $mod+Shift+8 workspace 8:C; exec emacs; exec chromium; exec i3-sensible-terminal;
-bindsym $mod+9 workspace 9:D; layout tabbed;
+bindsym $mod+9 workspace 9:D; layout default;
 bindsym $mod+Shift+9 workspace 9:D; exec emacs; exec chromium; exec i3-sensible-terminal;
-bindsym $mod+0 workspace 10:E; layout tabbed;
+bindsym $mod+0 workspace 10:E; layout default;
 bindsym $mod+Shift+0 workspace 0:E; exec emacs; exec chromium; exec i3-sensible-terminal;
